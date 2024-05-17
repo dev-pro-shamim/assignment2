@@ -1,53 +1,70 @@
 <?php
 class Book {
- // TODO: Add properties as Private
- 
- public function __construct($title, $availableCopies) {
-     // TODO: Initialize properties
-     }
+    private $title;
+    private $availableCopies;
 
+    public function __construct($title, $availableCopies) {
+        $this->title = $title;
+        $this->availableCopies = $availableCopies;
+    }
 
-// TODO: Add getTitle method
+    public function getTitle() {
+        return $this->title;
+    }
 
+    public function getAvailableCopies() {
+        return $this->availableCopies;
+    }
 
- 
+    public function borrowBook() {
+        if ($this->availableCopies > 0) {
+            $this->availableCopies--;
+        } else {
+            echo "No available copies of '{$this->title}'\n";
+        }
+    }
 
-
-
- // TODO: Add getAvailableCopies method
- 
-
-
-
- // TODO: Add borrowBook method
- 
-
-
-
- // TODO: Add returnBook method
- 
+    public function returnBook() {
+        $this->availableCopies++;
+    }
 }
-
 
 class Member {
- // TODO: Add properties as Private
+    private $name;
+
+    public function __construct($name) {
+        $this->name = $name;
+    }
+
+    public function getName() {
+        return $this->name;
+    }
 
 
+    
 
- public function __construct($name) {
-      // TODO: Initialize properties
-     }
+    public function borrowBook($book) {
+        $book->borrowBook();
+    }
 
-
-
- // TODO: Add getName method
- 
- // TODO: Add borrowBook method
- 
-
-
-
- // TODO: Add returnBook method
- 
+    public function returnBook($book) {
+        $book->returnBook();
+    }
 }
 
+// Create books
+$book1 = new Book("The Great Gatsby", 5);
+$book2 = new Book("To Kill a Mockingbird", 3);
+
+// Create members
+$member1 = new Member("John Doe");
+$member2 = new Member("Jane Smith");
+
+// Members borrow books
+$member1->borrowBook($book1);
+$member2->borrowBook($book2);
+
+// Print available copies
+echo "Available Copies of '{$book1->getTitle()}': {$book1->getAvailableCopies()}<br>";
+echo "Available Copies of '{$book2->getTitle()}': {$book2->getAvailableCopies()}\n";
+?>
